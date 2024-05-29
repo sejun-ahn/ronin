@@ -252,12 +252,7 @@ def compile_unannotated_sequence(root_dir, data_list, args):
             init_gyro_bias = processed_sources['gyro_uncalib'][0] - processed_sources['gyro'][0]
             end_gyro_bias = np.loadtxt(osp.join(data_path, 'gyro_bias.txt'))
             device = 'unknown'
-            with open(osp.join(data_path, 'acce_calib.txt')) as f:
-                line = f.readline().split()
-                date = line[3]
-                if line[-1] in _device_list:
-                    device = line[-1]
-            acce_calib = np.loadtxt(osp.join(data_path, 'acce_calib.txt'))
+            date = '0/0'
 
             meta_info = {'type': 'unannotated',
                          'length': output_time[-1] - output_time[0],
@@ -266,8 +261,12 @@ def compile_unannotated_sequence(root_dir, data_list, args):
                          'imu_reference_time': reference_time,
                          'imu_init_gyro_bias': init_gyro_bias.tolist(),
                          'imu_end_gyro_bias': end_gyro_bias.tolist(),
-                         'imu_acce_bias': acce_calib[0].tolist(),
-                         'imu_acce_scale': acce_calib[1].tolist()}
+                         'imu_acce_bias': [0, 0, 0],
+                         'imu_acce_scale': [1, 1, 1],
+                         'gyro_integration_error': 0,
+                         'grv_ori_error': 0,
+                         'ekf_ori_error': 0,
+                         'start_calibration': [1, 0, 0, 0]}
             json.dump(meta_info, open(osp.join(out_path, 'info.json'), 'w'))
 
             with h5py.File(osp.join(out_path, 'data.hdf5'), 'x') as f:
@@ -282,6 +281,11 @@ def compile_unannotated_sequence(root_dir, data_list, args):
                         f.create_dataset('synced/' + source, data=processed_sources['gravity'])
                     else:
                         f.create_dataset('synced/' + source, data=processed_sources[source])
+                # tango_pose, tango_ori with zeros
+                l = len(output_time) 
+                f.create_group('pose')
+                f.create_dataset('pose/tango_pos', data=np.zeros([l,3]))
+                f.create_dataset('pose/tango_ori', data=np.zeros([l,4]))
 
         except (OSError, FileNotFoundError, TypeError) as e:
             print(e)

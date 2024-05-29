@@ -50,12 +50,14 @@ class GlobSpeedSequence(CompiledSequence):
             ts = np.copy(f['synced/time'])
             tango_pos = np.copy(f['pose/tango_pos'])
             init_tango_ori = quaternion.quaternion(*f['pose/tango_ori'][0])
+            tango_ori_init = f['pose/tango_ori'][0]
 
         # Compute the IMU orientation in the Tango coordinate frame.
         ori_q = quaternion.from_float_array(ori)
-        rot_imu_to_tango = quaternion.quaternion(*self.info['start_calibration'])
-        init_rotor = init_tango_ori * rot_imu_to_tango * ori_q[0].conj()
-        ori_q = init_rotor * ori_q
+        if tango_ori_init.sum() != 0:
+            rot_imu_to_tango = quaternion.quaternion(*self.info['start_calibration'])
+            init_rotor = init_tango_ori * rot_imu_to_tango * ori_q[0].conj()
+            ori_q = init_rotor * ori_q
 
         dt = (ts[self.w:] - ts[:-self.w])[:, None]
         glob_v = (tango_pos[self.w:] - tango_pos[:-self.w]) / dt

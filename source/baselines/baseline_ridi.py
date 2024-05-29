@@ -219,7 +219,7 @@ def grid_search(args):
 
 
 def recon_traj_with_preds(dataset, preds, seq_id=0, **kwargs):
-    ind = np.array([i[1] for i in dataset.index_map if i[0] == seq_id], dtype=np.int)
+    ind = np.array([i[1] for i in dataset.index_map if i[0] == seq_id], dtype=np.int64)
     ts = dataset.ts[seq_id]
     dt = np.mean(ts[ind[1:]] - ts[ind[:-1]])
 

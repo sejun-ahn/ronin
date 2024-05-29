@@ -6,9 +6,9 @@
 
 ---
 ### 변경점
-1. "numpy.int"가 deprecated되어 "numpy.int64"로 대체
-2. 실제 train dataset과 list.txt 내용이 서로 달라 해당 list 파일 수정
-3. IMURecorder 애플리케이션을 이용하여 취득한 데이터만을 이용한 Inference를 위한 코드 수정
+- "numpy.int"가 deprecated되어 "numpy.int64"로 대체
+- 실제 train dataset과 list.txt 내용이 서로 달라 해당 list 파일 수정
+- IMURecorder 애플리케이션을 이용하여 취득한 데이터만을 이용한 Inference를 위한 코드 수정
 
 ### 구동 환경
 - python 3.8

@@ -8,7 +8,7 @@
 ### Changes:
 - Modified to perform inference using the single device's IMU data (including the preprocessing steps)
 - Added lines of code to separately save the plot of the predicted trajectory. (only for `ronin_resnet.py`, use `--traj_only`)
-
+![Example Image](data_result/ahn_mpil_result/ahn_mpil_pred_traj_gsn.png)
 ### Environment:
 - python 3.8
 - cudatoolkit 11.8

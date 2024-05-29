@@ -357,6 +357,16 @@ def test_sequence(args):
             plt.savefig(osp.join(args.out_dir, data + '_gsn.png'))
 
         plt.close('all')
+        
+        if args.traj_only:
+            plt.figure('{}'.format(data), figsize=(16, 9))
+            plt.plot(pos_pred[:, 0], pos_pred[:, 1])
+            plt.title(data)
+            plt.axis('equal')
+            plt.legend(['Predicted'])
+            if args.out_dir is not None and osp.isdir(args.out_dir):
+                plt.savefig(osp.join(args.out_dir, data + '_pred_traj_gsn.png'))
+            plt.close('all')
 
     losses_seq = np.stack(losses_seq, axis=0)
     losses_avg = np.mean(losses_seq, axis=1)
@@ -407,6 +417,7 @@ if __name__ == '__main__':
     parser.add_argument('--run_ekf', action='store_true')
     parser.add_argument('--fast_test', action='store_true')
     parser.add_argument('--show_plot', action='store_true')
+    parser.add_argument('--traj_only', action='store_true')
 
     parser.add_argument('--continue_from', type=str, default=None)
     parser.add_argument('--out_dir', type=str, default=None)

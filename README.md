@@ -5,12 +5,11 @@
 **Demo**: https://youtu.be/JkL3O9jFYrE
 
 ---
-### 변경점
-- "numpy.int"가 deprecated되어 "numpy.int64"로 대체
-- 실제 train dataset과 list_train.txt 내용이 서로 달라 해당 list 파일 수정
-- IMURecorder 애플리케이션을 이용하여 취득한 데이터만을 이용한 Inference를 위한 코드 수정
-- Predicted trajectory에 대해서 해당 plot만 이미지 파일로 저장하기 위한 코드 추가 (`ronin_resnet.py` 한정, `--traj_only`)
-### 구동 환경
+### Changes:
+- Modified to perform inference using the single device's IMU data (including the preprocessing steps)
+- Added lines of code to separately save the plot of the predicted trajectory. (only for `ronin_resnet.py`, use `--traj_only`)
+
+### Environment:
 - python 3.8
 - cudatoolkit 11.8
 - pytorch 2.3

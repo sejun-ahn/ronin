@@ -25,7 +25,7 @@
         line arguments. 
         * Example training command: ```python ronin_resnet.py --mode train --train_list <path-to-train-list> --root_dir 
         <path-to-dataset-folder> --out_dir <path-to-output-folder>```.
-        * Example testing command: ```python ronin_resnet.py --mode test --test_list <path-to-train-list> --root_dir 
+        * Example testing command: ```python ronin_resnet.py --mode test --test_list <path-to-test-list> --root_dir 
         <path-to-dataset-folder> --out_dir <path-to-output-folder> --model_path <path-to-model-checkpoint>```.
     2. To train/test **RoNIN LSTM** or **RoNIN TCN** model:
         * run ```source/ronin_lstm_tcn.py``` with mode (train/test) and model type. Please refer to the source code for the 
